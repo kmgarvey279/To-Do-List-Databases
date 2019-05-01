@@ -17,6 +17,8 @@ public Startup(IHostingEnvironment env)
   Configuration = builder.Build();
 }
 
+// app.UseDeveloperExceptionPage();
+
 public IConfigurationRoot Configuration { get; }
 
 public void ConfigureServices(IServiceCollection services)
@@ -37,8 +39,6 @@ public void Configure(IApplicationBuilder app)
     {
       await context.Response.WriteAsync("Something went wrong!");
     });
-
-    app.UseDeveloperExceptionPage();
 
     }
   }
