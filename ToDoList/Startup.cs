@@ -17,7 +17,7 @@ public Startup(IHostingEnvironment env)
   Configuration = builder.Build();
 }
 
-// app.UseDeveloperExceptionPage();
+
 
 public IConfigurationRoot Configuration { get; }
 
@@ -28,6 +28,7 @@ public void ConfigureServices(IServiceCollection services)
 
 public void Configure(IApplicationBuilder app)
 {
+  app.UseDeveloperExceptionPage();
   app.UseMvc(routes =>
   {
     routes.MapRoute(
@@ -41,5 +42,10 @@ public void Configure(IApplicationBuilder app)
     });
 
     }
+
+    public static class DBConfiguration
+  {
+    public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=to_do_list;";
+  }
   }
 }
