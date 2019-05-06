@@ -27,30 +27,55 @@ namespace ToDoList.Models
     }
 
     public static List<Item> GetAll()
+  {
+    List<Item> allItems = new List<Item> { };
+    MySqlConnection conn = DB.Connection();
+    conn.Open();
+    MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+    cmd.CommandText = @"SELECT * FROM items;";
+    MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+    while(rdr.Read())
     {
-      List<Item>allItems = new List<Item> {};
+      int itemId = rdr.GetInt32(0);
+      string itemDescription = rdr.GetString(1);
+      // Line below now only provides one argument!
+      Item newItem = new Item(itemDescription);
+      allItems.Add(newItem);
+    }
+    conn.Close();
+    if (conn != null)
+    {
+      conn.Dispose();
+    }
+    return allItems;
+  }
+
+    public static void ClearAll()
+    {
       MySqlConnection conn = DB.Connection();
       conn.Open();
-      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM items;";
-      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-      while(rdr.Read())
-      {
-        int itemId = rdr.GetInt32(0);
-        string itemDescription = rdr.GetString(1);
-        Item newItem = new Item(itemDescription, itemId);
-        allItems.Add(newItem);
-      }
-
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM items;";
+      cmd.ExecuteNonQuery();
       conn.Close();
-
       if (conn != null)
       {
-        conn.Dispose();
+       conn.Dispose();
       }
-
-      return allItems;
     }
+
+    public static Item Find(int searchId)
+    {
+      // Temporarily returning dummy item to get beyond compiler errors, until we refactor to work with database.
+      Item dummyItem = new Item("dummy item");
+      return dummyItem;
+    }
+    public int GetId()
+    {
+      // Temporarily returning dummy id to get beyond compiler errors, until we refactor to work with database.
+      return 0;
+    }
+
     // public int GetId()
     // {
     //   return _id;
