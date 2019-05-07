@@ -22,7 +22,9 @@ namespace ToDoList.Tests
     [TestMethod]
     public void ItemConstructor_CreatesInstanceOfItem_Item()
     {
-      Item newItem = new Item("test");
+      string description = "Walk the dog.";
+      string dueDate = "2019-12-04";
+      Item newItem = new Item(description, dueDate);
       Assert.AreEqual(typeof(Item), newItem.GetType());
     }
 
@@ -30,7 +32,8 @@ namespace ToDoList.Tests
     public void GetDescription_ReturnsDescription_String()
     {
       string description = "Walk the dog.";
-      Item newItem = new Item(description);
+      string dueDate = "2019-12-04";
+      Item newItem = new Item(description, dueDate);
       string result = newItem.GetDescription();
       Assert.AreEqual(description, result);
     }
@@ -39,11 +42,34 @@ namespace ToDoList.Tests
     public void SetDescription_SetDescription_String()
     {
       string description = "Walk the dog.";
-      Item newItem = new Item(description);
+      string dueDate = "2019-12-04";
+      Item newItem = new Item(description, dueDate);
       string updatedDescription = "Do the dishes";
       newItem.SetDescription(updatedDescription);
       string result = newItem.GetDescription();
       Assert.AreEqual(updatedDescription, result);
+    }
+
+    [TestMethod]
+    public void GetDueDate_ReturnsDueDate_String()
+    {
+      string description = "Walk the dog.";
+      string dueDate = "2019-12-04";
+      Item newItem = new Item(description, dueDate);
+      string result = newItem.GetDueDate();
+      Assert.AreEqual(dueDate, result);
+    }
+
+    [TestMethod]
+    public void SetDueDate_SetDueDate_String()
+    {
+      string description = "Walk the dog.";
+      string dueDate = "2019-12-04";
+      Item newItem = new Item(description, dueDate);
+      string updatedDueDate = "Do the dishes";
+      newItem.SetDueDate(updatedDueDate);
+      string result = newItem.GetDueDate();
+      Assert.AreEqual(updatedDueDate, result);
     }
 
     [TestMethod]
